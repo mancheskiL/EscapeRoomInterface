@@ -1,9 +1,12 @@
 import pygame
+from dialog import Dialog
 
 pygame.init()
 
 screen = pygame.display.set_mode((500, 500))
 # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+dialog = Dialog(['hello_world'])
 
 running = True
 while running:
@@ -24,6 +27,8 @@ while running:
     screen.fill((255, 255, 255))
 
     pygame.draw.circle(screen, (0, 0, 255), (250, 250), 50)
+
+    screen.blit(dialog.options[0], dialog.options_rect[0])
 
     pygame.display.flip()
 
