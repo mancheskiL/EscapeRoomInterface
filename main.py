@@ -6,8 +6,7 @@ pygame.init()
 screen = pygame.display.set_mode((500, 500))
 # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
-# dialog = Dialog(['hello', 'world', 'pie'])
-
+dialog = Dialog(['hello', 'world', 'pie'])
 run_dialog = False
 
 running = True
@@ -39,9 +38,10 @@ while running:
         # screen.blit(dialog.surf, dialog.rect)
 
     if run_dialog == True:
-        dialog = Dialog(['hello', 'world', 'pie'])
+        # dialog = Dialog(['hello', 'world', 'pie'])
         screen.blit(dialog.surf, dialog.rect)
 
+    dialog.update()
 
     pygame.display.flip()
 

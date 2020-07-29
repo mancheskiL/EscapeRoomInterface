@@ -11,17 +11,23 @@ class Dialog(pygame.sprite.Sprite):
         self.surf = pygame.Surface((300, 300))
         self.surf.fill((100, 100, 100))
         self.rect = self.surf.get_rect()
+        self.buttons = []
         self.options = []
         self.options_rect = []
         self.font = pygame.font.Font(None, 25)
         # creates overall dialog buttons
         for line in lines:
             # TODO: create buttons/interactive space
-            
+
             button = Button(line, self.surf.get_width(), self.surf.get_height())
+            self.buttons.append(button)
             self.options.append(button.surf)
             self.options_rect.append(button.rect)
 
         # adds dialog button surfaces to main dialog surface
         for i, item in enumerate(self.options):
             self.surf.blit(item, (20, 100*i))
+
+    def update(self):
+        for button in self.buttons:
+            button.update()
