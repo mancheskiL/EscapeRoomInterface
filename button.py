@@ -1,9 +1,9 @@
 import pygame
 
 class Button():
-    def __init__(self, text):
-        self.surf = pygame.Surface((300, 300))
-        self.surf.fill((100, 100, 100))
+    def __init__(self, text, parent_width, parent_height):
+        self.surf = pygame.Surface((parent_width*.8, parent_height*.2))
+        self.surf.fill((0, 0, 0))
         self.rect = self.surf.get_rect()
         self.text = text
         self.font = pygame.font.Font(None, 25)
