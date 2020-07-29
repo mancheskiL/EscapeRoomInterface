@@ -6,7 +6,7 @@ pygame.init()
 screen = pygame.display.set_mode((500, 500))
 # screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
-dialog = Dialog(['hello', 'world', 'pie'])
+# dialog = Dialog(['hello', 'world', 'pie'])
 
 running = True
 while running:
@@ -26,9 +26,15 @@ while running:
 
     screen.fill((255, 255, 255))
 
-    pygame.draw.circle(screen, (0, 0, 255), (250, 250), 50)
+    circle = pygame.draw.circle(screen, (0, 0, 255), (250, 250), 50)
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
 
-    screen.blit(dialog.surf, dialog.rect)
+
+    if circle.collidepoint(mouse) and click[0] == 1:
+        print('collision')
+
+    # screen.blit(dialog.surf, dialog.rect)
 
     pygame.display.flip()
 

@@ -21,6 +21,7 @@ class Dialog(pygame.sprite.Sprite):
             button_surf.fill((0, 0, 0))
             button_rect = button_surf.get_rect()
 
+            # create text  surface and apply to button surface
             text = self.font.render(line, True, (150, 150, 150))
             textRect = text.get_rect()
             textRect.center = (button_surf.get_width() / 2,
@@ -28,6 +29,7 @@ class Dialog(pygame.sprite.Sprite):
 
             button_surf.blit(text, textRect)
 
+            # add button to list
             self.options.append(button_surf)
             self.options_rect.append(button_rect)
 
