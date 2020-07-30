@@ -31,13 +31,12 @@ while running:
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
 
-
     if circle.collidepoint(mouse) and click[0] == 1:
         run_dialog = True
         # dialog = Dialog(['hello', 'world', 'pie'])
         # screen.blit(dialog.surf, dialog.rect)
 
-    if run_dialog == True:
+    if run_dialog is True:
         # dialog = Dialog(['hello', 'world', 'pie'])
         screen.blit(dialog.surf, dialog.rect)
 

@@ -1,5 +1,6 @@
 import pygame
 
+
 class Button():
     def __init__(self, text, parent_width, parent_height):
         self.parent_w = parent_width
@@ -19,13 +20,15 @@ class Button():
         self.surf.blit(text, textRect)
 
     def update(self):
-        mouse = pygame.mouse.get_pos()
-        click = pygame.mouse.get_pressed()
+        # mouse = pygame.mouse.get_pos()
+        # click = pygame.mouse.get_pressed()
 
-        if self.rect.collidepoint(mouse) and click[0] == 1:
-            print(self.text, ' was clicked')
-            text = self.font.render('Testing', True, self.button_color)
-            textRect = text.get_rect()
-            textRect.center = (self.surf.get_width() / 2,
-                               self.surf.get_height() / 2)
-            self.surf.blit(text, textRect)
+        # if self.rect.collidepoint(mouse) and click[0] == 1:
+            # print(self.text, ' was clicked')
+            # text = self.font.render('Testing', True, self.button_color)
+            # textRect = text.get_rect()
+            # textRect.center = (self.surf.get_width() / 2,
+            #                    self.surf.get_height() / 2)
+            # self.surf.blit(text, textRect)
+        print(self.surf)
+        print(self.text, ":", self.rect)

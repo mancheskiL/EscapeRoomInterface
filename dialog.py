@@ -14,6 +14,7 @@ class Dialog(pygame.sprite.Sprite):
         self.buttons = []
         self.options = []
         self.options_rect = []
+        self.button_loc = []
         self.font = pygame.font.Font(None, 25)
         # creates overall dialog buttons
         for line in lines:
@@ -26,8 +27,18 @@ class Dialog(pygame.sprite.Sprite):
 
         # adds dialog button surfaces to main dialog surface
         for i, item in enumerate(self.options):
-            self.surf.blit(item, (20, 100*i))
+            place = self.surf.blit(item, (20, 100*i))
+            self.button_loc.append(place)
+
+        print(self.buttons)
+        print(self.options)
+        print(self.options_rect)
+        print(self.button_loc)
 
     def update(self):
-        for button in self.buttons:
-            button.update()
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
+        for i, location in enumerate(self.button_loc):
+            if location.collidepoint(mouse) and click[0] == 1:
+                self.buttons[i].update()
