@@ -42,3 +42,4 @@ class Dialog(pygame.sprite.Sprite):
         for i, location in enumerate(self.button_loc):
             if location.collidepoint(mouse) and click[0] == 1:
                 self.buttons[i].update()
+                self.surf.blit(self.buttons[i].surf, location)

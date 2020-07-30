@@ -1,5 +1,6 @@
 import pygame
 from dialog import Dialog
+from button import Button
 
 pygame.init()
 
@@ -8,6 +9,8 @@ screen = pygame.display.set_mode((500, 500))
 
 dialog = Dialog(['hello', 'world', 'pie'])
 run_dialog = False
+
+clock = pygame.time.Clock()
 
 running = True
 while running:
@@ -43,5 +46,7 @@ while running:
     dialog.update()
 
     pygame.display.flip()
+
+    clock.tick(30)
 
 pygame.quit()
