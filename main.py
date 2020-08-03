@@ -6,6 +6,7 @@ pygame.init()
 
 # screen = pygame.display.set_mode((500, 500), pygame.RESIZABLE)
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+refresh_screen = screen.copy()
 
 dims = screen.get_size()
 
@@ -43,21 +44,36 @@ while running:
         screen.blit(dialog.surf, dialog.rect)
 
     if l_door_tracker.rect.collidepoint(mouse) and click[0] == 1:
-
-        dialog = Dialog(['option1', 'option2', 'option3'])
-        screen.blit(dialog.surf, dialog.rect)
+        location = (dims[0]*.3, dims[1]*0.8)
+        prompt = pygame.image.load('./door_main_prompt.png')
+        prompt_rect = prompt.get_rect()
+        prompt_rect.x = location[0]
+        prompt_rect.y = location[1]
+        screen.blit(prompt, prompt_rect)
 
     if s_door_tracker.rect.collidepoint(mouse) and click[0] == 1:
         dialog = Dialog(['where you think youre going?'])
         screen.blit(dialog.surf, dialog.rect)
 
     if phone_tracker.rect.collidepoint(mouse) and click[0] == 1:
-        dialog = Dialog(['this is a phone'])
-        screen.blit(dialog.surf, dialog.rect)
+        location = (dims[0]*.3, dims[1]*0.8)
+        phone = pygame.image.load('./phone_image.png')
+        phone_rect = phone.get_rect()
+        phone_rect.x = location[0]
+        phone_rect.y = location[1]
+        screen.blit(phone, phone_rect)
 
     try:
         dialog.update()
     except NameError:
+        pass
+
+    try:
+        if prompt_rect.collidepoint(mouse) and click[0] == 1:
+            second_prompt = pygame.image.load('./door_2nd_prompt.png')
+            screen.blit(gen_surf, screen.get_rect())
+            screen.blit(second_prompt, (dims[0]*.4, dims[1]*.8))
+    except Exception:
         pass
 
     for event in pygame.event.get():
