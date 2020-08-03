@@ -1,5 +1,4 @@
 import pygame
-from dialog import Dialog
 from tracker import Tracker
 
 pygame.init()
@@ -39,9 +38,12 @@ while running:
     # print(mouse)
     click = pygame.mouse.get_pressed()
 
+    if gen_surf.get_rect().collidepoint(mouse) and click[0] == 1:
+        screen.blit(gen_surf, screen.get_rect())
+
     if r_door_tracker.rect.collidepoint(mouse) and click[0] == 1:
-        dialog = Dialog(['private, no entrance!'])
-        screen.blit(dialog.surf, dialog.rect)
+        # TODO: put code for popup here
+        pass
 
     if l_door_tracker.rect.collidepoint(mouse) and click[0] == 1:
         location = (dims[0]*.3, dims[1]*0.8)
@@ -52,8 +54,8 @@ while running:
         screen.blit(prompt, prompt_rect)
 
     if s_door_tracker.rect.collidepoint(mouse) and click[0] == 1:
-        dialog = Dialog(['where you think youre going?'])
-        screen.blit(dialog.surf, dialog.rect)
+        # TODO: put code for popup here
+        pass
 
     if phone_tracker.rect.collidepoint(mouse) and click[0] == 1:
         location = (dims[0]*.3, dims[1]*0.8)
