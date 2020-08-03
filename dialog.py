@@ -30,11 +30,6 @@ class Dialog(pygame.sprite.Sprite):
             place = self.surf.blit(item, (20, 100*i))
             self.button_loc.append(place)
 
-        print(self.buttons)
-        print(self.options)
-        print(self.options_rect)
-        print(self.button_loc)
-
     def update(self):
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()

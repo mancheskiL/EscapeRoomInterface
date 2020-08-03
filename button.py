@@ -21,7 +21,7 @@ class Button():
 
     def update(self):
 
-        # print(self.text, ' was clicked')
+        print(self.text, ' was clicked')
         self.surf = pygame.Surface((self.parent_w*.8, self.parent_h*.2))
         self.surf.fill((0, 0, 0))
         new_text = self.font.render('Testing', True, (0, 0, 255))
