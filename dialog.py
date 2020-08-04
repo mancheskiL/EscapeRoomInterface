@@ -6,9 +6,9 @@ from button import Button
 # box will take list of phrases to create children as clickable options
 # which will lead to some type of response based on clicked choice
 class Dialog(pygame.sprite.Sprite):
-    def __init__(self, lines=None):
+    def __init__(self, buttons, size):
         super().__init__()
-        self.surf = pygame.Surface((300, 300))
+        self.surf = pygame.Surface(size)
         self.surf.fill((100, 100, 100))
         self.rect = self.surf.get_rect()
         self.buttons = []
@@ -17,10 +17,9 @@ class Dialog(pygame.sprite.Sprite):
         self.button_loc = []
         self.font = pygame.font.Font(None, 25)
         # creates overall dialog buttons
-        for line in lines:
-            # TODO: create buttons/interactive space
+        for i in range(buttons):
 
-            button = Button(line, self.surf.get_width(), self.surf.get_height())
+            button = Button(str(i), self.surf.get_width(), self.surf.get_height())
             self.buttons.append(button)
             self.options.append(button.surf)
             self.options_rect.append(button.rect)
