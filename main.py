@@ -1,7 +1,7 @@
 import pygame
 from tracker import Tracker
 from itertools import cycle
-from dialog import Dialog
+from TextControl import Control
 
 pygame.init()
 
@@ -89,10 +89,14 @@ while MainLoop:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     MainLoop = False
-        pass_text = pygame.Surface((dims[0]*.5, dims[1]*.1))
+        # pass_text = pygame.Surface((dims[0]*.5, dims[1]*.1))
+        pass_text = Control((dims[0]*.5, dims[1]*.1), (dims[0]*.5, dims[1]*.1))
 
-        pass_text.fill((255, 255, 255))
-        screen.blit(pass_text, (dims[0]*.5, dims[1]*.1))
+        # pass_text.fill((255, 255, 255))
+        # screen.blit(pass_text, (dims[0]*.5, dims[1]*.1))
+        # TODO: make number button trackers to activate control update()
+
+        screen.blit(pass_text.surf, pass_text.rect)
 
 
     if Layout:
