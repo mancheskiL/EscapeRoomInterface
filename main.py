@@ -3,6 +3,26 @@ from tracker import Tracker
 
 pygame.init()
 
+
+def door_unlocked():
+    going = True
+    while going:
+        sign = pygame.image.load('./unlock_sign.png')
+        sign_rect = sign.get_rect()
+        sign_rect.x = dims[0]*.4
+        sign_rect.y = dims[1]*.2
+        screen.blit(sign, sign_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    going = False
+
+        pygame.display.flip()
+
+        clock.tick(30)
+
+
 # screen = pygame.display.set_mode((500, 500), pygame.RESIZABLE)
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 refresh_screen = screen.copy()
@@ -73,8 +93,32 @@ while running:
     try:
         if prompt_rect.collidepoint(mouse) and click[0] == 1:
             second_prompt = pygame.image.load('./door_2nd_prompt.png')
+            tracker1 = Tracker(dims[0]*.42, dims[1]*.82, dims[0]*.083, dims[1]*.025)
+            tracker2 = Tracker(dims[0]*.42, dims[1]*.846, dims[0]*.083, dims[1]*.025)
+            tracker3 = Tracker(dims[0]*.42, dims[1]*.872, dims[0]*.083, dims[1]*.025)
+            tracker4 = Tracker(dims[0]*.42, dims[1]*.898, dims[0]*.083, dims[1]*.025)
+
             screen.blit(gen_surf, screen.get_rect())
             screen.blit(second_prompt, (dims[0]*.4, dims[1]*.8))
+            screen.blit(tracker1.surf, tracker1.rect)
+            screen.blit(tracker2.surf, tracker2.rect)
+            screen.blit(tracker3.surf, tracker3.rect)
+            screen.blit(tracker4.surf, tracker4.rect)
+    except Exception:
+        pass
+
+    try:
+        if tracker4.rect.collidepoint(mouse) and click[0] == 1:
+            # prompt_rect = None
+            # sign = pygame.image.load('./unlock_sign.png')
+            # sign_rect = sign.get_rect()
+            # sign_rect.x = dims[0]*.4
+            # sign_rect.y = dims[1]*.2
+            # screen.blit(sign, sign_rect)
+
+            door_unlocked()
+            running = False
+
     except Exception:
         pass
 
