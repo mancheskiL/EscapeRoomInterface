@@ -37,7 +37,8 @@ phone_tracker = Tracker(dims[0]*.15, dims[1]*.5, dims[0]*.08, dims[1]*.1)
 clock = pygame.time.Clock()
 
 gen_surf = pygame.Surface(screen.get_size())
-background = pygame.image.load('./image.jpg')
+# background = pygame.image.load('./image.jpg')
+background = pygame.image.load('./fimage.png')
 scaled = pygame.transform.smoothscale(background, screen.get_size())
 
 gen_surf.blit(scaled, screen.get_rect())
