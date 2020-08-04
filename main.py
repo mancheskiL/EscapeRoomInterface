@@ -51,6 +51,8 @@ screen.blit(gen_surf, screen.get_rect())
 
 pygame.display.flip()
 
+actives = []
+
 running = True
 while running:
 
@@ -60,11 +62,20 @@ while running:
     click = pygame.mouse.get_pressed()
 
     if gen_surf.get_rect().collidepoint(mouse) and click[0] == 1:
+        try:
+            for item in actives:
+                item = None
+        except Exception:
+            pass
         screen.blit(gen_surf, screen.get_rect())
 
     if r_door_tracker.rect.collidepoint(mouse) and click[0] == 1:
-        # TODO: put code for popup here
-        pass
+        location = (dims[0]*.3, dims[1]*0.8)
+        text = pygame.image.load('./dont_go_there.png')
+        text_rect = text.get_rect()
+        text_rect.x = location[0]
+        text_rect.y = location[1]
+        screen.blit(text, text_rect)
 
     if l_door_tracker.rect.collidepoint(mouse) and click[0] == 1:
         location = (dims[0]*.3, dims[1]*0.8)
@@ -75,8 +86,12 @@ while running:
         screen.blit(prompt, prompt_rect)
 
     if s_door_tracker.rect.collidepoint(mouse) and click[0] == 1:
-        # TODO: put code for popup here
-        pass
+        location = (dims[0]*.3, dims[1]*0.8)
+        private = pygame.image.load('./private.png')
+        private_rect = private.get_rect()
+        private_rect.x = location[0]
+        private_rect.y = location[1]
+        screen.blit(private, private_rect)
 
     if phone_tracker.rect.collidepoint(mouse) and click[0] == 1:
         location = (dims[0]*.3, dims[1]*0.8)
@@ -94,17 +109,50 @@ while running:
     try:
         if prompt_rect.collidepoint(mouse) and click[0] == 1:
             second_prompt = pygame.image.load('./door_2nd_prompt.png')
-            tracker1 = Tracker(dims[0]*.42, dims[1]*.82, dims[0]*.083, dims[1]*.025)
-            tracker2 = Tracker(dims[0]*.42, dims[1]*.846, dims[0]*.083, dims[1]*.025)
-            tracker3 = Tracker(dims[0]*.42, dims[1]*.872, dims[0]*.083, dims[1]*.025)
-            tracker4 = Tracker(dims[0]*.42, dims[1]*.898, dims[0]*.083, dims[1]*.025)
+            tracker1 = Tracker(dims[0]*.42, dims[1]*.82, dims[0]*.12, dims[1]*.025)
+            tracker2 = Tracker(dims[0]*.42, dims[1]*.861, dims[0]*.12, dims[1]*.025)
+            tracker3 = Tracker(dims[0]*.42, dims[1]*.89, dims[0]*.12, dims[1]*.025)
+            tracker4 = Tracker(dims[0]*.42, dims[1]*.93, dims[0]*.12, dims[1]*.025)
 
             screen.blit(gen_surf, screen.get_rect())
             screen.blit(second_prompt, (dims[0]*.4, dims[1]*.8))
-            screen.blit(tracker1.surf, tracker1.rect)
-            screen.blit(tracker2.surf, tracker2.rect)
-            screen.blit(tracker3.surf, tracker3.rect)
-            screen.blit(tracker4.surf, tracker4.rect)
+            # screen.blit(tracker1.surf, tracker1.rect)
+            # screen.blit(tracker2.surf, tracker2.rect)
+            # screen.blit(tracker3.surf, tracker3.rect)
+            # screen.blit(tracker4.surf, tracker4.rect)
+    except Exception:
+        pass
+
+    try:
+        if tracker1.rect.collidepoint(mouse) and click[0] == 1:
+            location = (dims[0]*.3, dims[1]*0.8)
+            unfit = pygame.image.load('./unfit.png')
+            unfit_rect = unfit.get_rect()
+            unfit_rect.x = location[0]
+            unfit_rect.y = location[1]
+            screen.blit(unfit, unfit_rect)
+    except Exception:
+        pass
+
+    try:
+        if tracker2.rect.collidepoint(mouse) and click[0] == 1:
+            location = (dims[0]*.3, dims[1]*0.8)
+            fire = pygame.image.load('./no_fire.png')
+            fire_rect = fire.get_rect()
+            fire_rect.x = location[0]
+            fire_rect.y = location[1]
+            screen.blit(fire, fire_rect)
+    except Exception:
+        pass
+
+    try:
+        if tracker3.rect.collidepoint(mouse) and click[0] == 1:
+            location = (dims[0]*.3, dims[1]*0.8)
+            kick = pygame.image.load('./no_kick.png')
+            kick_rect = kick.get_rect()
+            kick_rect.x = location[0]
+            kick_rect.y = location[1]
+            screen.blit(kick, kick_rect)
     except Exception:
         pass
 
@@ -119,7 +167,6 @@ while running:
 
             door_unlocked()
             running = False
-
     except Exception:
         pass
 
