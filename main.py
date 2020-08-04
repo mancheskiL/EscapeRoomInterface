@@ -38,6 +38,10 @@ def door_unlocked():
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 refresh_screen = screen.copy()
 
+PassScreen = True
+Layout = False
+MainLoop = True
+
 dims = screen.get_size()
 
 r_door_tracker = Tracker(dims[0]*.54, dims[1]*.21, dims[0]*.10, dims[1]*.5)
@@ -58,9 +62,7 @@ gen_surf.blit(scaled, screen.get_rect())
 # gen_surf.blit(l_door_tracker.surf, l_door_tracker.rect)
 # gen_surf.blit(s_door_tracker.surf, s_door_tracker.rect)
 # gen_surf.blit(phone_tracker.surf, phone_tracker.rect)
-screen.blit(gen_surf, screen.get_rect())
-
-pygame.display.flip()
+# screen.blit(gen_surf, screen.get_rect())
 
 actives = []
 
@@ -69,17 +71,27 @@ tracker2 = None
 tracker3 = None
 tracker4 = None
 
-PassScreen = True
-Layout = False
-MainLoop = True
+pass_surf = pygame.Surface(screen.get_size())
+pass_back = pygame.image.load('./pass.png')
+pass_scale = pygame.transform.smoothscale(pass_back, screen.get_size())
+pass_surf.blit(pass_scale, screen.get_rect())
+
+if PassScreen:
+    screen.blit(pass_surf, screen.get_rect())
+else:
+    screen.blit(gen_surf, screen.get_rect())
+
+pygame.display.flip()
+
 while MainLoop:
     if PassScreen:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     MainLoop = False
-        dialog = Dialog(9, screen.get_size())
-        screen.blit(dialog.surf, dialog.rect)
+        pass_text = pygame.Surface((dims[0]*.5, dims[1]*.1))
+        print(pass_text)
+        screen.blit(pass_text, (dims[0]*.5, dims[1]*.1))
 
     if Layout:
         for event in pygame.event.get():
