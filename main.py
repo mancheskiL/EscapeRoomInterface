@@ -77,7 +77,7 @@ while MainLoop:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running = False
+                    MainLoop = False
         dialog = Dialog(9, screen.get_size())
         screen.blit(dialog.surf, dialog.rect)
 
