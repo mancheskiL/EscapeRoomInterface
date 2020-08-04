@@ -90,8 +90,10 @@ while MainLoop:
                 if event.key == pygame.K_ESCAPE:
                     MainLoop = False
         pass_text = pygame.Surface((dims[0]*.5, dims[1]*.1))
-        print(pass_text)
+
+        pass_text.fill((255, 255, 255))
         screen.blit(pass_text, (dims[0]*.5, dims[1]*.1))
+
 
     if Layout:
         for event in pygame.event.get():
