@@ -138,8 +138,49 @@ while MainLoop:
     if Layout:
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if gen_surf.get_rect().collidepoint(event.pos):
-                    screen.blit(gen_surf, screen.get_rect())
+                # if gen_surf.get_rect().collidepoint(event.pos):
+                try:
+                    if prompt_rect and not prompt_rect.collidepoint(event.pos):
+                        try:
+                            del prompt_rect
+                        except:
+                            pass
+                except:
+                    pass
+                try:
+                    if tracker1 and not tracker1.rect.collidepoint(event.pos):
+                        try:
+                            del tracker1
+                        except:
+                            pass
+                except:
+                    pass
+                try:
+                    if tracker2 and not tracker2.rect.collidepoint(event.pos):
+                        try:
+                            del tracker2
+                        except:
+                            pass
+                except:
+                    pass
+                try:
+                    if tracker3 and not tracker3.rect.collidepoint(event.pos):
+                        try:
+                            del tracker3
+                        except:
+                            pass
+                except:
+                    pass
+                try:
+                    if tracker4 and not tracker4.rect.collidepoint(event.pos):
+                        try:
+                            del tracker4
+                        except:
+                            pass
+                except:
+                    pass
+
+                screen.blit(gen_surf, screen.get_rect())
 
                 try:
                     if tracker1.rect.collidepoint(event.pos):
