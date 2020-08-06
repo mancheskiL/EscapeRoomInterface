@@ -15,7 +15,8 @@ class Control():
         self.textRect = self.text.get_rect()
         self.textRect.center = (self.surf.get_width() / 2,
                                 self.surf.get_height() / 2)
-
+        self.creds_path = './creds.txt'
+        self.creds = None
         self.surf.blit(self.text, self.textRect)
 
     def update(self, input):
@@ -23,7 +24,11 @@ class Control():
             temp_surf = pygame.Surface(self.size)
             temp_surf.fill((200, 200, 200))
             self.surf = temp_surf
-            if self.updated_text == '123':
+
+            with open(self.creds_path, 'r') as f:
+                self.creds = f.read()
+
+            if self.updated_text == self.creds:
                 self.updated_text = ""
                 return True
             else:
