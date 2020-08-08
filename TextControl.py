@@ -26,7 +26,7 @@ class Control():
             self.surf = temp_surf
 
             with open(self.creds_path, 'r') as f:
-                self.creds = f.read()
+                self.creds = f.read().strip()
 
             if self.updated_text == self.creds:
                 self.updated_text = ""
