@@ -8,7 +8,7 @@ class Control():
         self.surf = pygame.Surface(self.size)
         self.surf.fill((200, 200, 200))
         self.rect = pygame.Rect(position[0], position[1], size[0], size[1])
-        self.font = pygame.font.Font(None, 25)
+        self.font = pygame.font.Font('freesansbold.ttf', 25)
         self.updated_text = ""
 
         self.text = self.font.render('Enter password', True, (0, 0, 0))
