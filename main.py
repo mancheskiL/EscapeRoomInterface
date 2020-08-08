@@ -65,7 +65,6 @@ else:
 pygame.display.flip()
 
 
-
 def door_unlocked():
     on_sign = pygame.image.load('./unlock_sign.png')
     on_rect = on_sign.get_rect()
@@ -319,7 +318,7 @@ while MainLoop:
                     except:
                         pass
                     # location = (dims[0]*.3, dims[1]*0.8)
-                    location = (dims[0]*.3, dims[1]*0.6)
+                    location = (dims[0]*.3, dims[1]*0.7)
                     private = pygame.image.load('./private.png')
                     private_w, private_h = private.get_size()
                     private_scale = pygame.transform.smoothscale(private, (int(private_w/AR_W), int(private_h/AR_H)))
@@ -363,7 +362,7 @@ while MainLoop:
                         del prompt_rect
                     except:
                         pass
-                    location = (dims[0]*.3, dims[1]*0.8)
+                    location = (dims[0]*.3, dims[1]*0.7)
                     text = pygame.image.load('./dont_go_there.png')
                     text_w, text_h = text.get_size()
                     text_scale = pygame.transform.smoothscale(text, (int(text_w/AR_W), int(text_h/AR_H)))
@@ -395,12 +394,16 @@ while MainLoop:
                         del prompt_rect
                     except:
                         pass
-                    location = (dims[0]*.3, dims[1]*0.8)
+                    location = (dims[0]*.3, dims[1]*0.7)
                     phone = pygame.image.load('./phone_image.png')
-                    phone_rect = phone.get_rect()
+                    phone_w, phone_h = phone.get_size()
+                    phone_scale = pygame.transform.smoothscale(phone, (int(phone_w/AR_W), int(phone_h/AR_H)))
+                    # phone_rect = phone.get_rect()
+                    phone_rect = phone_scale.get_rect()
                     phone_rect.x = location[0]
                     phone_rect.y = location[1]
-                    screen.blit(phone, phone_rect)
+                    # screen.blit(phone, phone_rect)
+                    screen.blit(phone_scale, phone_rect)
             elif event.type == pygame.QUIT:
                 MainLoop = False
             elif event.type == pygame.KEYDOWN:
