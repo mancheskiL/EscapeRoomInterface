@@ -11,6 +11,11 @@ BLINK_EVENT = pygame.USEREVENT + 0
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 refresh_screen = screen.copy()
 
+DEFAULT_SIZE = (2160, 1440)
+CURRENT_SIZE = screen.get_size()
+AR_W = DEFAULT_SIZE[0]/CURRENT_SIZE[0]
+AR_H = DEFAULT_SIZE[1]/CURRENT_SIZE[1]
+
 PassScreen = True
 Layout = False
 MainLoop = True
@@ -27,6 +32,7 @@ clock = pygame.time.Clock()
 gen_surf = pygame.Surface(screen.get_size())
 # background = pygame.image.load('./image.jpg')
 background = pygame.image.load('./fimage.png')
+background_w, background_h = background.get_size()
 scaled = pygame.transform.smoothscale(background, screen.get_size())
 
 gen_surf.blit(scaled, screen.get_rect())
@@ -57,6 +63,7 @@ else:
     screen.blit(gen_surf, screen.get_rect())
 
 pygame.display.flip()
+
 
 
 def door_unlocked():
@@ -311,20 +318,29 @@ while MainLoop:
                         del prompt_rect
                     except:
                         pass
-                    location = (dims[0]*.3, dims[1]*0.8)
+                    # location = (dims[0]*.3, dims[1]*0.8)
+                    location = (dims[0]*.3, dims[1]*0.6)
                     private = pygame.image.load('./private.png')
-                    private_rect = private.get_rect()
+                    private_w, private_h = private.get_size()
+                    private_scale = pygame.transform.smoothscale(private, (int(private_w/AR_W), int(private_h/AR_H)))
+                    # private_rect = private.get_rect()
+                    private_rect = private_scale.get_rect()
                     private_rect.x = location[0]
                     private_rect.y = location[1]
-                    screen.blit(private, private_rect)
+                    # screen.blit(private, private_rect)
+                    screen.blit(private_scale, private_rect)
 
                 if l_door_tracker.rect.collidepoint(event.pos):
-                    location = (dims[0]*.3, dims[1]*0.8)
+                    location = (dims[0]*.3, dims[1]*0.7)
                     prompt = pygame.image.load('./door_main_prompt.png')
-                    prompt_rect = prompt.get_rect()
+                    prompt_w, prompt_h = prompt.get_size()
+                    prompt_scale = pygame.transform.smoothscale(prompt, (int(prompt_w/AR_W), int(prompt_h/AR_H)))
+                    # prompt_rect = prompt.get_rect()
+                    prompt_rect = prompt_scale.get_rect()
                     prompt_rect.x = location[0]
                     prompt_rect.y = location[1]
-                    screen.blit(prompt, prompt_rect)
+                    # screen.blit(prompt, prompt_rect)
+                    screen.blit(prompt_scale, prompt_rect)
 
                 if s_door_tracker.rect.collidepoint(event.pos):
                     try:
@@ -349,10 +365,14 @@ while MainLoop:
                         pass
                     location = (dims[0]*.3, dims[1]*0.8)
                     text = pygame.image.load('./dont_go_there.png')
-                    text_rect = text.get_rect()
+                    text_w, text_h = text.get_size()
+                    text_scale = pygame.transform.smoothscale(text, (int(text_w/AR_W), int(text_h/AR_H)))
+                    # text_rect = text.get_rect()
+                    text_rect = text_scale.get_rect()
                     text_rect.x = location[0]
                     text_rect.y = location[1]
-                    screen.blit(text, text_rect)
+                    # screen.blit(text, text_rect)
+                    screen.blit(text_scale, text_rect)
 
                 if phone_tracker.rect.collidepoint(event.pos):
                     try:
