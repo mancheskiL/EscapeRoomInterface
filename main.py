@@ -66,7 +66,12 @@ pygame.display.flip()
 
 
 def door_unlocked():
-    on_sign = pygame.image.load('./unlock_sign.png')
+    track_ul = Tracker(dims[0]*.27, dims[1]*.075, dims[0]*.05, dims[1]*.05)
+    track_ll = Tracker(dims[0]*.26, dims[1]*.65, dims[0]*.02, dims[1]*.025)
+    track_ur = Tracker(dims[0]*.67, dims[1]*.075, dims[0]*.05, dims[1]*.05)
+    track_lr = Tracker(dims[0]*.68, dims[1]*.65, dims[0]*.03, dims[1]*.04)
+
+    on_sign = pygame.image.load('./opening.png')
     on_rect = on_sign.get_rect()
     on_rect.x = dims[0]*.4
     on_rect.y = dims[1]*.2
@@ -74,6 +79,10 @@ def door_unlocked():
     # off_sign = pygame.Surface(on_sign_rect.size)
     off_sign = gen_surf
     off_rect = screen.get_rect()
+    # off_sign.blit(track_ul.surf, track_ul.rect)
+    # off_sign.blit(track_ll.surf, track_ll.rect)
+    # off_sign.blit(track_ur.surf, track_ur.rect)
+    # off_sign.blit(track_lr.surf, track_lr.rect)
 
     sign_surfaces = cycle([on_sign, off_sign])
     sign_surface = next(sign_surfaces)
@@ -82,22 +91,53 @@ def door_unlocked():
 
     pygame.time.set_timer(BLINK_EVENT, 500)
 
+    conditions = {1: False, 2: False, 3: False, 4: False}
+
+    flashes = 0
+
     going = True
     while going:
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    going = False
-            if event.type == BLINK_EVENT:
-                sign_surface = next(sign_surfaces)
-                sign_rect = next(sign_rects)
+        event = pygame.event.wait()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                going = False
+        elif event.type == BLINK_EVENT:
+            sign_surface = next(sign_surfaces)
+            sign_rect = next(sign_rects)
 
             screen.blit(sign_surface, sign_rect)
+            flashes += 1
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if track_ul.rect.collidepoint(event.pos):
+                conditions[1] = True
+            if track_ll.rect.collidepoint(event.pos):
+                conditions[2] = True
+            if track_ur.rect.collidepoint(event.pos):
+                conditions[3] = True
+            if track_lr.rect.collidepoint(event.pos):
+                conditions[4] = True
+
+        if flashes > 10:
+            pygame.time.set_timer(BLINK_EVENT, 0)
+            unlocked = pygame.image.load('./unlock_sign.png')
+            unlocked_rect = on_rect
+            screen.blit(unlocked, unlocked_rect)
+
+        count = 0
+        for key, value in conditions.items():
+            if value:
+                count += 1
+
+        if count == 4:
+            going = False
 
         pygame.display.update()
         clock.tick(30)
 
+
 options = False
+
 
 while MainLoop:
     if PassScreen:
@@ -235,55 +275,7 @@ while MainLoop:
                 except Exception:
                     pass
 
-                # try:
-                    # if prompt_rect.collidepoint(mouse) and click[0] == 1:
-                #     if prompt_rect.collidepoint(event.pos):
-                #         del prompt_rect
-                #         location = (dims[0]*.4, dims[1]*.75)
-                #         second_prompt = pygame.image.load('./door_2nd_prompt.png')
-                #         second_w, second_h = second_prompt.get_size()
-                #         second_scale = pygame.transform.smoothscale(second_prompt, (int(second_w/AR_W), int(second_h/AR_H)))
-                #         second_rect = second_scale.get_rect()
-                #         second_rect.x = location[0]
-                #         second_rect.y = location[1]
-                #         tracker1 = Tracker(dims[0]*.42, dims[1]*.82, dims[0]*.12, dims[1]*.025)
-                #         tracker2 = Tracker(dims[0]*.42, dims[1]*.861, dims[0]*.12, dims[1]*.025)
-                #         tracker3 = Tracker(dims[0]*.42, dims[1]*.89, dims[0]*.12, dims[1]*.025)
-                #         tracker4 = Tracker(dims[0]*.42, dims[1]*.93, dims[0]*.12, dims[1]*.025)
-                #
-                #         # second_scale.fill((255, 0, 0), special_flags=pygame.BLEND_MULT)
-                #
-                #         screen.blit(gen_surf, screen.get_rect())
-                #         # screen.blit(second_prompt, second_rect)
-                #         screen.blit(second_scale, second_rect)
-                #         # screen.blit(tracker1.surf, tracker1.rect)
-                #         # screen.blit(tracker2.surf, tracker2.rect)
-                #         # screen.blit(tracker3.surf, tracker3.rect)
-                #         # screen.blit(tracker4.surf, tracker4.rect)
-                # except Exception:
-                #     pass
-
                 if r_door_tracker.rect.collidepoint(event.pos):
-                    try:
-                        del tracker1
-                    except:
-                        pass
-                    try:
-                        del tracker2
-                    except:
-                        pass
-                    try:
-                        del tracker3
-                    except:
-                        pass
-                    try:
-                        del tracker4
-                    except:
-                        pass
-                    try:
-                        del prompt_rect
-                    except:
-                        pass
                     # location = (dims[0]*.3, dims[1]*0.8)
                     location = (dims[0]*.3, dims[1]*0.7)
                     private = pygame.image.load('./private.png')
@@ -346,26 +338,6 @@ while MainLoop:
                     screen.blit(open_scale, open_rect)
 
                 if s_door_tracker.rect.collidepoint(event.pos):
-                    try:
-                        del tracker1
-                    except:
-                        pass
-                    try:
-                        del tracker2
-                    except:
-                        pass
-                    try:
-                        del tracker3
-                    except:
-                        pass
-                    try:
-                        del tracker4
-                    except:
-                        pass
-                    try:
-                        del prompt_rect
-                    except:
-                        pass
                     location = (dims[0]*.3, dims[1]*0.7)
                     text = pygame.image.load('./dont_go_there.png')
                     text_w, text_h = text.get_size()
@@ -378,26 +350,6 @@ while MainLoop:
                     screen.blit(text_scale, text_rect)
 
                 if phone_tracker.rect.collidepoint(event.pos):
-                    try:
-                        del tracker1
-                    except:
-                        pass
-                    try:
-                        del tracker2
-                    except:
-                        pass
-                    try:
-                        del tracker3
-                    except:
-                        pass
-                    try:
-                        del tracker4
-                    except:
-                        pass
-                    try:
-                        del prompt_rect
-                    except:
-                        pass
                     location = (dims[0]*.3, dims[1]*0.7)
                     phone = pygame.image.load('./phone_image.png')
                     phone_w, phone_h = phone.get_size()
@@ -413,28 +365,28 @@ while MainLoop:
                     try:
                         if run_rect.collidepoint(event.pos):
                             temp = run_scale.copy()
-                            temp.fill((255, 0, 0), special_flags=pygame.BLEND_MULT)
+                            temp.fill((200, 200, 200), special_flags=pygame.BLEND_MULT)
                             screen.blit(temp, run_rect)
                         else:
                             screen.blit(run_scale, run_rect)
 
                         if fire_rect.collidepoint(event.pos):
                             temp = fire_scale.copy()
-                            temp.fill((255, 0, 0), special_flags=pygame.BLEND_MULT)
+                            temp.fill((200, 200, 200), special_flags=pygame.BLEND_MULT)
                             screen.blit(temp, fire_rect)
                         else:
                             screen.blit(fire_scale, fire_rect)
 
                         if kick_rect.collidepoint(event.pos):
                             temp = kick_scale.copy()
-                            temp.fill((255, 0, 0), special_flags=pygame.BLEND_MULT)
+                            temp.fill((200, 200, 200), special_flags=pygame.BLEND_MULT)
                             screen.blit(temp, kick_rect)
                         else:
                             screen.blit(kick_scale, kick_rect)
 
                         if open_rect.collidepoint(event.pos):
                             temp = open_scale.copy()
-                            temp.fill((255, 0, 0), special_flags=pygame.BLEND_MULT)
+                            temp.fill((200, 200, 200), special_flags=pygame.BLEND_MULT)
                             screen.blit(temp, open_rect)
                         else:
                             screen.blit(open_scale, open_rect)
