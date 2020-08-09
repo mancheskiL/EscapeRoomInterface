@@ -236,7 +236,7 @@ while MainLoop:
 
                 try:
                     if run_rect.collidepoint(event.pos):
-                        location = (dims[0]*.3, dims[1]*0.8)
+                        location = (dims[0]*.32, dims[1]*0.7)
                         unfit = pygame.image.load('./unfit.png')
                         unfit_rect = unfit.get_rect()
                         unfit_rect.x = location[0]
@@ -247,7 +247,7 @@ while MainLoop:
 
                 try:
                     if fire_rect.collidepoint(event.pos):
-                        location = (dims[0]*.3, dims[1]*0.8)
+                        location = (dims[0]*.32, dims[1]*0.7)
                         fire = pygame.image.load('./no_fire.png')
                         fire_rect = fire.get_rect()
                         fire_rect.x = location[0]
@@ -258,7 +258,7 @@ while MainLoop:
 
                 try:
                     if kick_rect.collidepoint(event.pos):
-                        location = (dims[0]*.3, dims[1]*0.8)
+                        location = (dims[0]*.32, dims[1]*0.7)
                         kick = pygame.image.load('./no_kick.png')
                         kick_rect = kick.get_rect()
                         kick_rect.x = location[0]
