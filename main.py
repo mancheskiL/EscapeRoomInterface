@@ -35,6 +35,7 @@ background = pygame.image.load('./fimage.png')
 background_w, background_h = background.get_size()
 scaled = pygame.transform.smoothscale(background, screen.get_size())
 
+
 gen_surf.blit(scaled, screen.get_rect())
 
 # gen_surf.blit(r_door_tracker.surf, r_door_tracker.rect)
@@ -182,9 +183,11 @@ while MainLoop:
                         Layout = True
                         screen.blit(gen_surf, screen.get_rect())
 
+    # main screen
     if Layout:
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
+                # destroys any popups based on click locations
                 # if gen_surf.get_rect().collidepoint(event.pos):
                 try:
                     if prompt_rect and not prompt_rect.collidepoint(event.pos):
@@ -232,16 +235,21 @@ while MainLoop:
                 except:
                     pass
 
+                # refreshes screen to blank
                 screen.blit(gen_surf, screen.get_rect())
 
+                # the following 4 try blocks do the following:
+                # create new dialog based on which action button was clicked
                 try:
                     if run_rect.collidepoint(event.pos):
                         location = (dims[0]*.32, dims[1]*0.7)
                         unfit = pygame.image.load('./unfit.png')
+                        unfit_w, unfit_h = unfit.get_size()
+                        unfit_scale = pygame.transform.smoothscale(unfit, (int(unfit_w/AR_W), int(unfit_h/AR_H)))
                         unfit_rect = unfit.get_rect()
                         unfit_rect.x = location[0]
                         unfit_rect.y = location[1]
-                        screen.blit(unfit, unfit_rect)
+                        screen.blit(unfit_scale, unfit_rect)
                 except Exception:
                     pass
 
@@ -249,10 +257,12 @@ while MainLoop:
                     if fire_rect.collidepoint(event.pos):
                         location = (dims[0]*.32, dims[1]*0.7)
                         fire = pygame.image.load('./no_fire.png')
-                        fire_rect = fire.get_rect()
+                        fire_w, fire_h = fire.get_size()
+                        fire_scale = pygame.transform.smoothscale(fire, (int(fire_w/AR_W), int(fire_h/AR_H)))
+                        fire_rect = fire_scale.get_rect()
                         fire_rect.x = location[0]
                         fire_rect.y = location[1]
-                        screen.blit(fire, fire_rect)
+                        screen.blit(fire_scale, fire_rect)
                 except Exception:
                     pass
 
@@ -260,10 +270,12 @@ while MainLoop:
                     if kick_rect.collidepoint(event.pos):
                         location = (dims[0]*.32, dims[1]*0.7)
                         kick = pygame.image.load('./no_kick.png')
-                        kick_rect = kick.get_rect()
+                        kick_w, kick_h = kick.get_size()
+                        kick_scale = pygame.transform.smoothscale(kick, (int(kick_w/AR_W), int(kick_h/AR_H)))
+                        kick_rect = kick_scale.get_rect()
                         kick_rect.x = location[0]
                         kick_rect.y = location[1]
-                        screen.blit(kick, kick_rect)
+                        screen.blit(kick_scale, kick_rect)
                 except Exception:
                     pass
 
@@ -290,6 +302,7 @@ while MainLoop:
 
                 if l_door_tracker.rect.collidepoint(event.pos):
                     options = True
+
                     location = (dims[0]*.3, dims[1]*0.68)
                     prompt = pygame.image.load('./door_main_prompt.png')
                     prompt_w, prompt_h = prompt.get_size()
@@ -361,7 +374,10 @@ while MainLoop:
                     # screen.blit(phone, phone_rect)
                     screen.blit(phone_scale, phone_rect)
             elif event.type == pygame.MOUSEMOTION:
+            # if mouse is hovered over a button, highlight that button
                 if options:
+                    # options is set by left door trigger so we don't highlight
+                    # empty space, but only existing buttons
                     try:
                         if run_rect.collidepoint(event.pos):
                             temp = run_scale.copy()
